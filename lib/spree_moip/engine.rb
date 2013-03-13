@@ -6,6 +6,16 @@ module SpreeMoip
 
     config.autoload_paths += %W(#{config.root}/lib)
 
+    # Enabling assets precompiling under rails 3.1
+    initializer :assets do |config|
+      Rails.application.config.assets.paths << File.join(File.dirname(__FILE__), 'app', 'assets', 'javascripts', 'admin')
+      Rails.application.config.assets.paths << File.join(File.dirname(__FILE__), 'app', 'assets', 'javascripts', 'store')      
+      Rails.application.config.assets.paths << File.join(File.dirname(__FILE__), 'app', 'assets', 'stylesheets', 'admin')
+      Rails.application.config.assets.paths << File.join(File.dirname(__FILE__), 'app', 'assets', 'stylesheets', 'store')      
+
+      Rails.application.config.assets.precompile += %w( *.css *.js )
+    end
+
     # use rspec for tests
     config.generators do |g|
       g.test_framework :rspec
